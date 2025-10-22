@@ -54,7 +54,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("JobId,JobName,Urgency,JobDetails,Location,Salary")] JobListing jobListing)
+        public async Task<IActionResult> Create([Bind("JobId,JobAddress,JobName,Urgency,JobDetails,Location,Salary")] JobListing jobListing)
         {
             if (ModelState.IsValid)
             {
