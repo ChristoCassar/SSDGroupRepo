@@ -4,16 +4,19 @@ using Lab1_SecureSoftware_NicholasCassar.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Lab1_SecureSoftware_NicholasCassar.Data.Migrations
+namespace Lab1_SecureSoftware_NicholasCassar.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251022195856_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,8 +151,11 @@ namespace Lab1_SecureSoftware_NicholasCassar.Data.Migrations
 
             modelBuilder.Entity("Lab1_SecureSoftware_NicholasCassar.Models.JobListing", b =>
                 {
-                    b.Property<string>("JobId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("JobId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("JobId"));
 
                     b.Property<string>("JobAddress")
                         .IsRequired()

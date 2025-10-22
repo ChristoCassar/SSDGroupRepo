@@ -7,7 +7,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Models
     {
         //Id - The key reference to the company.
         [Key]
-        public string JobId { get; set; }
+        public int JobId { get; set; }
 
         [Required, Display(Name = "Job Address")]
         public string JobAddress { get; set; }

@@ -26,7 +26,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Controllers
         }
 
         // GET: JobListings/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
@@ -66,7 +66,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Controllers
         }
 
         // GET: JobListings/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
@@ -86,7 +86,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("JobId,JobName,Urgency,JobDetails,Location,Salary")] JobListing jobListing)
+        public async Task<IActionResult> Edit(int id, [Bind("JobId,JobName,Urgency,JobDetails,Location,Salary")] JobListing jobListing)
         {
             if (id != jobListing.JobId)
             {
@@ -117,7 +117,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Controllers
         }
 
         // GET: JobListings/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
@@ -137,7 +137,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Controllers
         // POST: JobListings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var jobListing = await _context.JobListing.FindAsync(id);
             if (jobListing != null)
@@ -149,7 +149,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool JobListingExists(string id)
+        private bool JobListingExists(int id)
         {
             return _context.JobListing.Any(e => e.JobId == id);
         }
