@@ -11,7 +11,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
     }
 
-public DbSet<Company> Company { get; set; } = default!;
-
 public DbSet<Lab1_SecureSoftware_NicholasCassar.Models.JobListing> JobListing { get; set; } = default!;
+
+public DbSet<Lab1_SecureSoftware_NicholasCassar.Models.Tool> Tool { get; set; } = default!;
+
+public DbSet<Lab1_SecureSoftware_NicholasCassar.Models.Employee> Employee { get; set; } = default!;
 }

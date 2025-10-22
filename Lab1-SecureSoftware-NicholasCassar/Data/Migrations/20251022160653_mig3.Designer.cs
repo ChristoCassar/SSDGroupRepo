@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab1_SecureSoftware_NicholasCassar.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251020233550_MG1")]
-    partial class MG1
+    [Migration("20251022160653_mig3")]
+    partial class mig3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,29 +102,51 @@ namespace Lab1_SecureSoftware_NicholasCassar.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Lab1_SecureSoftware_NicholasCassar.Models.Company", b =>
+            modelBuilder.Entity("Lab1_SecureSoftware_NicholasCassar.Models.Employee", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Address")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Province")
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Website")
+                    b.Property<string>("PostalCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("YearsInBusiness")
+                    b.Property<int>("SIN")
                         .HasColumnType("int");
+
+                    b.Property<string>("StreetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Company");
+                    b.ToTable("Employee");
                 });
 
             modelBuilder.Entity("Lab1_SecureSoftware_NicholasCassar.Models.JobListing", b =>
@@ -132,9 +154,9 @@ namespace Lab1_SecureSoftware_NicholasCassar.Data.Migrations
                     b.Property<string>("JobId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CompanyId")
+                    b.Property<string>("JobAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("JobDetails")
                         .IsRequired()
@@ -157,9 +179,39 @@ namespace Lab1_SecureSoftware_NicholasCassar.Data.Migrations
 
                     b.HasKey("JobId");
 
-                    b.HasIndex("CompanyId");
-
                     b.ToTable("JobListing");
+                });
+
+            modelBuilder.Entity("Lab1_SecureSoftware_NicholasCassar.Models.Tool", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<float>("Cost")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("InUse")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SerialNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tool");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -293,17 +345,6 @@ namespace Lab1_SecureSoftware_NicholasCassar.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Lab1_SecureSoftware_NicholasCassar.Models.JobListing", b =>
-                {
-                    b.HasOne("Lab1_SecureSoftware_NicholasCassar.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

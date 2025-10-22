@@ -5,7 +5,7 @@
 namespace Lab1_SecureSoftware_NicholasCassar.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class ApplicationUserUpdated : Migration
+    public partial class mig3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

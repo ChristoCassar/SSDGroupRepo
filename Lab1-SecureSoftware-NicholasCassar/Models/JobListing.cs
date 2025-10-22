@@ -27,13 +27,9 @@ namespace Lab1_SecureSoftware_NicholasCassar.Models
         [Required, Display(Name = "Location")]
         public string Location { get; set; }
         //The pay for completing the job.
-        [Required, Display(Name = "Pay")]
-        public float Pay { get; set; }
+        [Required, Display(Name = "Salary")]
+        public float Salary { get; set; }
 
-        [ForeignKey("Company")]
-        public string CompanyId { get; set; }
-
-        public Company Company { get; set; }
     }
 }
 
