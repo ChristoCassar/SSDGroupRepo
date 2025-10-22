@@ -7,6 +7,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Models
     {
         //Id - The key reference to the company.
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int JobId { get; set; }
 
         [Required, Display(Name = "Job Address")]

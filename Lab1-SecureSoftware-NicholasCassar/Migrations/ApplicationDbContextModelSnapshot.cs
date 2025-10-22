@@ -184,8 +184,11 @@ namespace Lab1_SecureSoftware_NicholasCassar.Migrations
 
             modelBuilder.Entity("Lab1_SecureSoftware_NicholasCassar.Models.Tool", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<float>("Cost")
                         .HasColumnType("real");

@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Lab1_SecureSoftware_NicholasCassar.Models
 {
     public class Tool
     {
         [Key]
-        public string Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         [Required, Display(Name = "Name")]
         public string Name { get; set; }
         [Required, Display(Name = "Type")]

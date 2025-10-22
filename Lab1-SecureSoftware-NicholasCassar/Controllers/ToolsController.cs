@@ -26,7 +26,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Controllers
         }
 
         // GET: Tools/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
@@ -66,7 +66,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Controllers
         }
 
         // GET: Tools/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
@@ -86,7 +86,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,Type,Description,SerialNumber,Cost,InUse")] Tool tool)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Type,Description,SerialNumber,Cost,InUse")] Tool tool)
         {
             if (id != tool.Id)
             {
@@ -117,7 +117,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Controllers
         }
 
         // GET: Tools/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
@@ -137,7 +137,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Controllers
         // POST: Tools/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var tool = await _context.Tool.FindAsync(id);
             if (tool != null)
@@ -149,7 +149,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ToolExists(string id)
+        private bool ToolExists(int id)
         {
             return _context.Tool.Any(e => e.Id == id);
         }

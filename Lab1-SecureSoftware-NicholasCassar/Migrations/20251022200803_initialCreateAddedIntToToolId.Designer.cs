@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab1_SecureSoftware_NicholasCassar.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251022195856_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251022200803_initialCreateAddedIntToToolId")]
+    partial class initialCreateAddedIntToToolId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -187,8 +187,11 @@ namespace Lab1_SecureSoftware_NicholasCassar.Migrations
 
             modelBuilder.Entity("Lab1_SecureSoftware_NicholasCassar.Models.Tool", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<float>("Cost")
                         .HasColumnType("real");
