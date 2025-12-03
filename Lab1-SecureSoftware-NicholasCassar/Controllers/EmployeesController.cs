@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Lab1_SecureSoftware_NicholasCassar.Data;
 using Lab1_SecureSoftware_NicholasCassar.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab1_SecureSoftware_NicholasCassar.Controllers
 {
+    [Authorize(Roles = "Supervisor")]
     public class EmployeesController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -22,10 +22,26 @@ public class Program
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
         //Here weve configured application and identity user and role. 
-        builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount = true;
+            options.Lockout.MaxFailedAccessAttempts = 30;  // Maximum login attempts before lockout
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);  // 5 minute lockout duration
+
+        })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders()
             .AddDefaultUI();
+
+        builder.Services.ConfigureApplicationCookie(options =>
+        {
+            options.Cookie.HttpOnly = true; 
+            options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;  
+            options.Cookie.SameSite = SameSiteMode.Strict;  
+            options.SlidingExpiration = true;  
+            options.ExpireTimeSpan = TimeSpan.FromMinutes(30);  // Session timeout
+        });
+
         builder.Services.AddControllersWithViews();
 
         var app = builder.Build();
@@ -52,6 +68,37 @@ public class Program
 
         app.UseRouting();
 
+        //TODO - Add a header src with a src link for secrets (Should not need a wild card this will trigger a new security risk on owasp)
+        app.Use(async (context, next) =>
+        {
+            var ctx = context!;
+            if(ctx == null)
+            {
+                Console.WriteLine("CTX IS NULL");
+            }
+
+            ctx.Response.Headers["X-XSS-Protection"] = "0";
+            ctx.Response.Headers["X-Content-Type-Options"] = "nosniff";
+            ctx.Response.Headers["X-Frame-Options"] = "SAMEORIGIN";
+            ctx.Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+
+
+            ctx.Response.Headers["Content-Security-Policy"] =
+                "default-src 'self'; " +
+                "script-src 'self';" +
+                "object-src 'none'; " +
+                "base-uri 'self'; " +
+                "frame-ancestors 'none'; ";
+            await next();
+        });
+
+        app.UseCookiePolicy(new CookiePolicyOptions
+        {
+            HttpOnly =
+        Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
+            Secure = CookieSecurePolicy.Always
+        });
+ 
         app.UseAuthorization();
 
         app.MapControllerRoute(
