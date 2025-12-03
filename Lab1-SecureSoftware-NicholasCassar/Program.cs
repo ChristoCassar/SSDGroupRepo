@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Lab1_SecureSoftware_NicholasCassar.Data;
 using Lab1_SecureSoftware_NicholasCassar.Models;
+using Azure.Identity;
 
 namespace Lab1_SecureSoftware_NicholasCassar;
 
@@ -43,6 +44,13 @@ public class Program
         });
 
         builder.Services.AddControllersWithViews();
+
+        var kvUri = new Uri(builder.Configuration.GetSection("KVURI").Value);
+        var azCred = new DefaultAzureCredential();
+
+        builder.Configuration.AddAzureKeyVault(kvUri, azCred);
+
+        DbInitializer.password = builder.Configuration.GetSection("userPassword").Value;
 
         var app = builder.Build();
 

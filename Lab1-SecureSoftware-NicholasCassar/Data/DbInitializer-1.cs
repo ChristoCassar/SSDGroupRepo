@@ -28,6 +28,9 @@ namespace Lab1_SecureSoftware_NicholasCassar.Data
         /// <param name="serviceProvider"></param>
         /// <returns>An int representing a failure corrosponding the the method called or 0 for success.
         /// </returns>
+        /// 
+
+        public static string password;
         public static async Task<int> SeedUsersAndRoles(IServiceProvider serviceProvider)
         {
             // create the database if it doesn't exist
@@ -101,7 +104,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Data
                 EmailConfirmed = true,
                 City = "Hamilton"
             };
-            var result = await userManager.CreateAsync(adminUser, "Password!1");
+            var result = await userManager.CreateAsync(adminUser, password);
             if (!result.Succeeded)
                 return 1;  // should log an error message here
 
@@ -121,7 +124,7 @@ namespace Lab1_SecureSoftware_NicholasCassar.Data
                 City = "Hamilton"
 
             };
-            result = await userManager.CreateAsync(memberUser, "Password!1");
+            result = await userManager.CreateAsync(memberUser, password);
             if (!result.Succeeded)
                 return 3;  // should log an error message here
 
